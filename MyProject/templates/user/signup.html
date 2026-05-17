@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card animate-in">
+    <div class="auth-icon">
+      <i class="fa-solid fa-user-plus"></i>
+    </div>
+    <h2 class="auth-title">Create <span>Account</span></h2>
+    <p class="auth-subtitle">Join 10MinZepto for fast grocery delivery</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-floating mb-3">
+        <input type="text" required name="name" placeholder="Full Name" class="form-control" id="floatingName"/>
+        <label for="floatingName"><i class="fa-solid fa-user"></i>&nbsp; Full Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" required name="email" placeholder="name@example.com" class="form-control" id="floatingEmail"/>
+        <label for="floatingEmail"><i class="fa-solid fa-envelope"></i>&nbsp; Email Address</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="number" required name="mobile" placeholder="Mobile Number" class="form-control" id="floatingMobile"/>
+        <label for="floatingMobile"><i class="fa-solid fa-phone"></i>&nbsp; Mobile Number</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" required name="passwd" placeholder="Password" class="form-control" id="floatingPassword"/>
+        <label for="floatingPassword"><i class="fa-solid fa-lock"></i>&nbsp; Password</label>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold text-dark mb-1" style="font-size: 14px;"><i class="fa-solid fa-camera"></i>&nbsp; Profile Picture</label>
+        <input type="file" required name="fu" class="form-control" style="padding: 10px 16px;"/>
+      </div>
+      <div class="form-floating mb-3">
+        <textarea class="form-control" name="address" placeholder="Address" id="floatingAddress" style="height: 100px;"></textarea>
+        <label for="floatingAddress"><i class="fa-solid fa-location-dot"></i>&nbsp; Delivery Address</label>
+      </div>
+      <input type="submit" value="Create Account" class="btn-primary-custom w-100 py-3 mt-2"/>
+    </form>
+    <div class="auth-link">
+      Already have an account? <a href="/user/signin/">Sign In</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

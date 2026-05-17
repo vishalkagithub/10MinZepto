@@ -1,0 +1,196 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero-section row g-3 mb-4 animate-in">
+  <div class="col-lg-4 col-md-5 d-none d-md-block">
+    <div class="hero-banner h-100 position-relative" style="overflow:hidden; border-radius: var(--radius-lg);">
+      <img src="{% static 'images/bb.jpg'%}" alt="Fresh Groceries" class="w-100 h-100" style="object-fit:cover; transition: transform 0.5s ease;"/>
+      <div class="hero-banner-overlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(135deg, rgba(27,94,32,0.9), rgba(76,175,80,0.5)); display:flex; flex-direction:column; justify-content:center; padding:30px; color:white;">
+        <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold text-uppercase align-self-start">10 Min Delivery</span>
+        <h4 class="font-outfit fw-bold text-white mb-2">Daily Freshness at Your Doorstep</h4>
+        <p style="font-size:13px; opacity:0.9;" class="mb-3">Get fruits, veggies, milk, snacks & more delivered in 10 minutes.</p>
+        <a href="/user/product/" class="btn btn-sm btn-light text-success fw-semibold align-self-start px-3" style="border-radius:20px;">Shop Fresh</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-7 col-12">
+    <div id="heroCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="4000">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        {% for i in sdata %}
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter|add:2 }}" aria-label="Slide {{ forloop.counter|add:3 }}"></button>
+        {% endfor %}
+      </div>
+      <div class="carousel-inner h-100" style="border-radius: var(--radius-lg); overflow: hidden; min-height:280px;">
+        <div class="carousel-item active h-100">
+          <div class="carousel-image-wrap position-relative h-100">
+            <img src="{% static 'images/aa4.jpg'%}" style="height:280px; object-fit:cover;" class="d-block w-100" alt="Deals">
+            <div class="carousel-overlay">
+              <div class="carousel-overlay-content">
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold text-uppercase">Super Saver Deals</span>
+                <h3>Up to 50% OFF on Daily Essentials</h3>
+                <p>Order fresh fruits, vegetables, household essentials and more.</p>
+                <a href="/user/product/" class="btn btn-sm btn-primary-custom" style="width:auto; display:inline-block; padding:8px 16px;">Shop Deals</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item h-100">
+          <div class="carousel-image-wrap position-relative h-100">
+            <img src="{% static 'images/aa.jpg'%}" style="height:280px; object-fit:cover;" class="d-block w-100" alt="Fresh">
+            <div class="carousel-overlay">
+              <div class="carousel-overlay-content">
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold text-uppercase">Farm Fresh</span>
+                <h3>Fresh Fruits & Organic Vegetables</h3>
+                <p>100% handpicked produce directly sourced from local farms.</p>
+                <a href="/user/product/?cid=1" class="btn btn-sm btn-primary-custom" style="width:auto; display:inline-block; padding:8px 16px;">Shop Produce</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item h-100">
+          <div class="carousel-image-wrap position-relative h-100">
+            <img src="{% static 'images/aa3.jpg'%}" style="height:280px; object-fit:cover;" class="d-block w-100" alt="Offers">
+            <div class="carousel-overlay">
+              <div class="carousel-overlay-content">
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold text-uppercase">Exclusive Discounts</span>
+                <h3>Mouthwatering Snacks & Chocolates</h3>
+                <p>Delivered ice-cold and crisp in under 10 minutes.</p>
+                <a href="/user/product/?cid=3" class="btn btn-sm btn-primary-custom" style="width:auto; display:inline-block; padding:8px 16px;">View Offers</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% for i in sdata %}
+        <div class="carousel-item h-100">
+          <div class="carousel-image-wrap position-relative h-100">
+            <img src="/{{i.spic}}" style="height:280px; object-fit:cover;" class="d-block w-100" alt="Slider">
+            <div class="carousel-overlay">
+              <div class="carousel-overlay-content">
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2 fw-bold text-uppercase">Premium Choice</span>
+                <h3>Ultra-fast Grocery Delivery</h3>
+                <p>Your favorite brands, fresh ingredients, and home care items.</p>
+                <a href="/user/product/" class="btn btn-sm btn-primary-custom" style="width:auto; display:inline-block; padding:8px 16px;">Browse All</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Categories Section -->
+<div class="mb-5">
+  <div class="section-title">Shop by <span>Category</span></div>
+  <div class="row g-3">
+    {% for x in cdata %}
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+      <a href="/user/product/?cid={{x.id}}" class="d-block">
+        <div class="category-card">
+          <img src="/{{x.cpic}}" alt="{{x.cname}}"/>
+          <p class="cat-name">{{x.cname}}</p>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Today's Deals -->
+<div class="mb-5">
+  <div class="section-title"><i class="fa-solid fa-fire" style="color:var(--accent);"></i> Today's <span>Deals</span></div>
+  <div class="row g-3">
+    {% for x in odata %}
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="/{{x.product_pic}}" alt="{{x.subcategory_name}}"/>
+          <div class="discount-badge">{{x.total_discount}}% OFF</div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">{{x.subcategory_name}}</div>
+          <div class="product-weight">{{x.product_quantity}}</div>
+          <div class="price-row">
+            <span class="price-original">₹{{x.price}}</span>
+            <span class="price-discount">₹{{x.discount_price}}</span>
+          </div>
+          <form method="get" action="/user/indexcart/">
+            <input type="hidden" name="pname" value="{{x.subcategory_name}}"/>
+            <input type="hidden" name="price" value="{{x.price}}"/>
+            <input type="hidden" name="ppic" value="{{x.product_pic}}"/>
+            <input type="hidden" name="pw" value="{{x.product_quantity}}"/>
+            <div class="qty-stepper">
+              <button type="button" class="qty-btn" onclick="funm{{x.id}}()"><i class="fa-solid fa-minus"></i></button>
+              <input type="text" name="qt" value="0" id="txtcard{{x.id}}" readonly/>
+              <button type="button" class="qty-btn" onclick="funp{{x.id}}()"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <button type="submit" class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp; Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      var i{{x.id}}=0;
+      var txtc{{x.id}}=document.getElementById("txtcard{{x.id}}");
+      function funp{{x.id}}(){ i{{x.id}}++; txtc{{x.id}}.value=i{{x.id}}; }
+      function funm{{x.id}}(){ if(i{{x.id}}>0){ i{{x.id}}--; txtc{{x.id}}.value=i{{x.id}}; } }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Latest Products -->
+<div class="mb-5">
+  <div class="section-title"><i class="fa-solid fa-sparkles" style="color:var(--primary-light);"></i> Latest <span>Products</span></div>
+  <div class="row g-3">
+    {% for x in pdata %}
+    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="/{{x.product_pic}}" alt="{{x.subcategory_name}}"/>
+        </div>
+        <div class="product-info">
+          <div class="product-name">{{x.subcategory_name}}</div>
+          <div class="product-weight">{{x.product_quantity}}</div>
+          <div class="price-row">
+            <span class="price-original">₹{{x.price}}</span>
+            <span class="price-discount">₹{{x.discount_price}}</span>
+          </div>
+          <form method="get" action="/user/indexcart/">
+            <input type="hidden" name="pname" value="{{x.subcategory_name}}"/>
+            <input type="hidden" name="price" value="{{x.price}}"/>
+            <input type="hidden" name="ppic" value="{{x.product_pic}}"/>
+            <input type="hidden" name="pw" value="{{x.product_quantity}}"/>
+            <div class="qty-stepper">
+              <button type="button" class="qty-btn" onclick="funmx{{x.id}}()"><i class="fa-solid fa-minus"></i></button>
+              <input type="text" name="qt" value="0" id="txtcardx{{x.id}}" readonly/>
+              <button type="button" class="qty-btn" onclick="funpx{{x.id}}()"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <button type="submit" class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp; Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script>
+      var ix{{x.id}}=0;
+      var txtcx{{x.id}}=document.getElementById("txtcardx{{x.id}}");
+      function funpx{{x.id}}(){ ix{{x.id}}++; txtcx{{x.id}}.value=ix{{x.id}}; }
+      function funmx{{x.id}}(){ if(ix{{x.id}}>0){ ix{{x.id}}--; txtcx{{x.id}}.value=ix{{x.id}}; } }
+    </script>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

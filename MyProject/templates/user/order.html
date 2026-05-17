@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-card animate-in text-center">
+    <div class="auth-icon" style="background:rgba(76,175,80,0.1);">
+      <i class="fa-solid fa-circle-check" style="color:var(--primary-light);"></i>
+    </div>
+    <h2 class="auth-title">Order <span>Placed!</span></h2>
+    <p class="auth-subtitle">Your order has been placed successfully. You will receive a confirmation shortly.</p>
+    <a href="/user/index/" class="btn-primary-custom" style="display:inline-block; width:auto; padding:12px 32px;">
+      <i class="fa-solid fa-house"></i>&nbsp; Continue Shopping
+    </a>
+  </div>
+</div>
+
+{% endblock %}

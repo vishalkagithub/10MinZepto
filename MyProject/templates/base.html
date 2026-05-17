@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="10MinZepto — Get groceries delivered in 10 minutes. Fresh fruits, vegetables, dairy, and more.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/all.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/style.css' %}?v=2.0" rel="stylesheet"/>
+    <title>10MinZepto — Grocery Delivery</title>
+</head>
+<body>
+<script src="{% static 'js/bootstrap.bundle.js'%}"></script>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-4 col-md-6 col-sm-12 text-center text-lg-start">
+        <i class="fa-solid fa-phone"></i> +91-8115500585
+        &nbsp;&nbsp;
+        <i class="fa-solid fa-envelope"></i> vishalkaverma811@gmail.com
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+        <i class="fa-solid fa-bolt"></i> Free delivery on orders above ₹199
+      </div>
+      <div class="col-lg-4 d-none d-lg-block text-end">
+        <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Navbar -->
+<div class="main-navbar">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-3 col-6">
+        <a href="/user/index/" class="brand-logo">10Min<span>Zepto</span> <i class="fa-solid fa-leaf"></i></a>
+      </div>
+      <div class="col-md-5 d-none d-md-block">
+        <form action="/user/product/" method="get" class="search-bar-form w-100">
+          <div class="search-bar-wrap w-100 position-relative">
+            <input class="form-control search-input" type="search" placeholder="Search for fresh fruits, veggies, snacks..." name="q" value="{{ request.GET.q|default:'' }}">
+            <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4 col-6 text-end d-flex align-items-center justify-content-end gap-3">
+        {% if request.session.user %}
+        <a href="/user/myprofile/" class="d-flex align-items-center gap-2" style="color: var(--text-dark);">
+          <img src="/{{request.session.userpic}}" class="user-avatar" alt="User">
+          <span class="d-none d-lg-inline fw-semibold" style="font-size:14px;">{{request.session.username}}</span>
+        </a>
+        {% endif %}
+        <a href="/user/cartitems/" class="cart-btn">
+          <i class="fa-solid fa-cart-shopping"></i> Cart
+          <span class="badge">{{request.session.cartitems|default:"0"}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation Menu -->
+<div class="nav-menu">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid px-0">
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/user/index/"><i class="fa-solid fa-house"></i>&nbsp; Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/about/">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/product/"><i class="fa-solid fa-box-open"></i>&nbsp; Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/contact/">Customer Support</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/signup/">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user/myprofile/">My Profile</a>
+            </li>
+            {% if request.session.user %}
+            <li class="nav-item">
+              <a class="nav-link" href="/user/signout/"><i class="fa-solid fa-right-from-bracket"></i>&nbsp; Sign Out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="/user/signin/"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Sign In</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- Page Content -->
+<div class="container content-area">
+{% block content %}
+{% endblock %}
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <!-- Column 1: Company -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="footer-brand">10Min<span>Zepto</span></div>
+        <p style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:20px; line-height:1.7;">
+          Your trusted grocery delivery partner, bringing fresh produce and daily essentials to your doorstep in 10 minutes.
+        </p>
+        <div class="d-flex gap-2">
+          <a href="#" class="social-icon" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.6);"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.6);"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.6);"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="social-icon" style="border-color:rgba(255,255,255,0.2); color:rgba(255,255,255,0.6);"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Column 2: Categories -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5>Categories</h5>
+        <ul>
+          <li><a href="/user/product/?cid=1">Fruits & Vegetables</a></li>
+          <li><a href="/user/product/?cid=2">Dairy & Bread</a></li>
+          <li><a href="/user/product/?cid=3">Snacks & Munchies</a></li>
+          <li><a href="/user/product/?cid=4">Cold Drinks & Juices</a></li>
+        </ul>
+      </div>
+      <!-- Column 3: Support -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="/user/contact/">Customer Support</a></li>
+          <li><a href="/user/about/">About Us</a></li>
+          <li><a href="/user/contact/">FAQ & Help</a></li>
+          <li><a href="/user/index/">Terms of Service</a></li>
+        </ul>
+      </div>
+      <!-- Column 4: Newsletter -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5>Newsletter</h5>
+        <p style="font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:15px; line-height:1.6;">
+          Subscribe to receive updates on exclusive deals, discounts, and fresh arrivals.
+        </p>
+        <form action="#" method="post" onsubmit="event.preventDefault(); alert('Thank you for subscribing to our newsletter!');" style="display:flex; width:100%;">
+          <input type="email" placeholder="Your email address" class="form-control" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px 0 0 8px; font-size:14px; box-shadow:none; height:42px;" required/>
+          <button class="btn btn-primary-custom" type="submit" style="border-radius: 0 8px 8px 0; padding: 0 16px; font-size: 14px; height:42px; width:auto; white-space:nowrap;"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 10MinZepto. All rights reserved. Made with <i class="fa-solid fa-heart" style="color:#ef4444;"></i> in India
+  </div>
+</footer>
+
+<!-- Floating AI Assistant Chatbot -->
+<button class="chatbot-toggler" id="chatbotToggler">
+  <i class="fa-solid fa-comment-dots"></i>
+  <i class="fa-solid fa-xmark"></i>
+</button>
+
+<div class="chatbot-container" id="chatbotContainer">
+  <div class="chatbot-header">
+    <h5><span class="status-dot"></span> 10MinZepto Assistant</h5>
+    <button class="close-btn" id="chatbotClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  
+  <div class="chatbot-messages" id="chatbotMessages">
+    <div class="chatbot-message incoming">
+      <div class="chatbot-message-content">
+        Hi! I am your 10MinZepto AI Grocery Assistant. How can I help you find fresh products, track your orders, or explore today's deals today? 🍎🛒
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot-suggestions" id="chatbotSuggestions">
+    <div class="chatbot-suggestion-pill" onclick="sendChatbotMessage('Show Today\'s Deals')">Today's Deals 🔥</div>
+    <div class="chatbot-suggestion-pill" onclick="sendChatbotMessage('How fast is delivery?')">Delivery speed ⚡</div>
+    <div class="chatbot-suggestion-pill" onclick="sendChatbotMessage('Track my order')">Track order 📍</div>
+    <div class="chatbot-suggestion-pill" onclick="sendChatbotMessage('Contact support')">Support 📞</div>
+  </div>
+
+  <div class="chatbot-input-area">
+    <input type="text" id="chatbotInput" placeholder="Ask me anything..." onkeypress="if(event.key === 'Enter') submitChatbotMessage()"/>
+    <button class="send-btn" onclick="submitChatbotMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<script>
+  const toggler = document.getElementById('chatbotToggler');
+  const container = document.getElementById('chatbotContainer');
+  const closeBtn = document.getElementById('chatbotClose');
+  const messagesContainer = document.getElementById('chatbotMessages');
+  const chatInput = document.getElementById('chatbotInput');
+  const suggestionsContainer = document.getElementById('chatbotSuggestions');
+  
+  toggler.addEventListener('click', () => {
+    toggler.classList.toggle('active');
+    container.classList.toggle('active');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    toggler.classList.remove('active');
+    container.classList.remove('active');
+  });
+
+  function appendMessage(text, isOutgoing) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('chatbot-message', isOutgoing ? 'outgoing' : 'incoming');
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('chatbot-message-content');
+    contentDiv.innerHTML = text.replace(/\n/g, '<br/>');
+    
+    messageDiv.appendChild(contentDiv);
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function appendTypingIndicator() {
+    const indicatorDiv = document.createElement('div');
+    indicatorDiv.id = 'chatbotTypingIndicator';
+    indicatorDiv.classList.add('chatbot-message', 'incoming');
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.classList.add('chatbot-message-content');
+    
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('chatbot-typing-indicator');
+    typingDiv.innerHTML = '<span></span><span></span><span></span>';
+    
+    contentDiv.appendChild(typingDiv);
+    indicatorDiv.appendChild(contentDiv);
+    messagesContainer.appendChild(indicatorDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    const indicator = document.getElementById('chatbotTypingIndicator');
+    if (indicator) {
+      indicator.remove();
+    }
+  }
+
+  function updateSuggestions(suggestions) {
+    suggestionsContainer.innerHTML = '';
+    suggestions.forEach(s => {
+      const pill = document.createElement('div');
+      pill.classList.add('chatbot-suggestion-pill');
+      pill.innerText = s;
+      pill.onclick = () => sendChatbotMessage(s);
+      suggestionsContainer.appendChild(pill);
+    });
+  }
+
+  function sendChatbotMessage(text) {
+    appendMessage(text, true);
+    appendTypingIndicator();
+    
+    const userEmail = "{{ request.session.user|default:'guest' }}";
+    
+    fetch('http://127.0.0.1:8080/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: text,
+        user_email: userEmail
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      removeTypingIndicator();
+      appendMessage(data.reply, false);
+      if (data.suggestions && data.suggestions.length > 0) {
+        updateSuggestions(data.suggestions);
+      }
+    })
+    .catch(error => {
+      console.error('Error contacting chatbot service:', error);
+      setTimeout(() => {
+        removeTypingIndicator();
+        // Dynamic simulated response if FastAPI server is not currently running locally!
+        let reply = "Hello! I am your 10MinZepto AI Grocery Assistant. I'd love to help you with our 10-minute farm-fresh groceries. Note: My high-speed FastAPI microservice is starting up in the background! Please ask about our delivery speeds, Today's Deals, or contact us at +91-8115500585! 🚴‍♂️🥦";
+        let suggestions = ["How fast is delivery?", "Today's Deals", "Track my order", "Contact support"];
+        
+        const lowerText = text.toLowerCase();
+        if (lowerText.includes('delivery') || lowerText.includes('fast') || lowerText.includes('speed')) {
+          reply = "We deliver farm-fresh items directly to your doorstep in **under 10 minutes** from our closest micro dark store! ⚡📦";
+        } else if (lowerText.includes('deal') || lowerText.includes('offer') || lowerText.includes('discount')) {
+          reply = "Check out the **Today's Deals** section on our homepage for up to **50% OFF** fresh goods! 🏷️🔥";
+        } else if (lowerText.includes('support') || lowerText.includes('contact') || lowerText.includes('phone')) {
+          reply = "Need help? Reach out 24/7:\n- **Phone**: +91-8115500585 📞\n- **Email**: vishalkaverma811@gmail.com ✉️";
+        }
+        
+        appendMessage(reply, false);
+        updateSuggestions(suggestions);
+      }, 1000);
+    });
+  }
+
+  function submitChatbotMessage() {
+    const text = chatInput.value.trim();
+    if (text) {
+      chatInput.value = '';
+      sendChatbotMessage(text);
+    }
+  }
+</script>
+
+</body>
+</html>

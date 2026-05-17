@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-header">
+  <h2>Contact <span>Us</span></h2>
+</div>
+
+<div class="contact-section">
+  <div class="row g-4 justify-content-center">
+    <div class="col-lg-5 col-md-6">
+      <div class="contact-info-card">
+        <h3><i class="fa-solid fa-headset"></i>&nbsp; Get in Touch</h3>
+        <p style="opacity:0.85; margin-bottom:30px;">Have a question or feedback? We'd love to hear from you. Reach out to us anytime.</p>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-phone"></i>
+          <div>
+            <small style="opacity:0.7;">Phone</small><br>
+            <strong>+91-8115500585</strong>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-envelope"></i>
+          <div>
+            <small style="opacity:0.7;">Email</small><br>
+            <strong>vishalkaverma811@gmail.com</strong>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <small style="opacity:0.7;">Address</small><br>
+            <strong>Lucknow, Uttar Pradesh, India</strong>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <i class="fa-solid fa-clock"></i>
+          <div>
+            <small style="opacity:0.7;">Working Hours</small><br>
+            <strong>24/7 — Always Available</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-md-6">
+      <div class="auth-card" style="max-width:100%;">
+        <h3 class="auth-title" style="font-size:22px;">Send us a <span>Message</span></h3>
+        <p class="auth-subtitle">We'll get back to you within 24 hours</p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-field">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" class="form-control" required/>
+          </div>
+          <div class="form-field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Your email" class="form-control" required/>
+          </div>
+          <div class="form-field">
+            <label>Mobile</label>
+            <input type="number" name="mobile" placeholder="Your mobile number" class="form-control"/>
+          </div>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea name="message" class="form-control" placeholder="Write your message here..." style="min-height:120px;"></textarea>
+          </div>
+          <input type="submit" value="Send Message" class="btn-primary-custom"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

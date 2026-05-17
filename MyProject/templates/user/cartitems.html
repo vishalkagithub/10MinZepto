@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-header">
+  <h2>My <span>Cart</span> <i class="fa-solid fa-cart-shopping" style="color:var(--primary-light);"></i></h2>
+</div>
+
+{% if not request.session.user %}
+<script>
+  alert('You have to login first...');
+  location.href='/user/signin/';
+</script>
+{% endif %}
+
+<div class="row justify-content-center">
+  <div class="col-lg-9 col-md-11">
+    {% for i in cartdata %}
+    <div class="cart-item-card d-flex align-items-center gap-4 animate-in">
+      <img src="{{i.product_picture}}" alt="{{i.product_name}}"/>
+      <div class="item-details flex-grow-1">
+        <h6 class="mb-1">{{i.product_name}}</h6>
+        <small class="text-muted">{{i.pw}}</small>
+        <div class="d-flex align-items-center gap-4 mt-2">
+          <div>
+            <small class="text-muted">Order ID</small><br>
+            <strong>ZEPTO10{{i.id}}</strong>
+          </div>
+          <div>
+            <small class="text-muted">Qty</small><br>
+            <strong>{{i.quantity}}</strong>
+          </div>
+          <div>
+            <small class="text-muted">Price</small><br>
+            <strong>₹{{i.price}}</strong>
+          </div>
+          <div>
+            <small class="text-muted">Subtotal</small><br>
+            <strong style="color:var(--primary);">₹{{i.total_price}}</strong>
+          </div>
+          <div>
+            <small class="text-muted">Added</small><br>
+            <strong>{{i.added_date}}</strong>
+          </div>
+        </div>
+      </div>
+      <a href="/user/cartitems?cid={{i.id}}" class="btn-remove">
+        <i class="fa-solid fa-trash"></i>&nbsp; Remove
+      </a>
+    </div>
+    {% empty %}
+    <div class="text-center py-5">
+      <i class="fa-solid fa-cart-shopping" style="font-size:64px; color:var(--border); margin-bottom:16px;"></i>
+      <h4 style="color:var(--text-muted);">Your cart is empty</h4>
+      <p style="color:var(--text-light);">Browse our products and add items to your cart</p>
+      <a href="/user/product/" class="btn-primary-custom" style="display:inline-block; width:auto; padding:12px 32px;">Browse Products</a>
+    </div>
+    {% endfor %}
+
+    {% if cartdata %}
+    <div class="text-center mt-4">
+      <a href="/user/order?msg=1" class="btn-checkout">
+        <i class="fa-solid fa-credit-card"></i>&nbsp; CHECKOUT ALL
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

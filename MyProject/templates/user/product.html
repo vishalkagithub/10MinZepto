@@ -1,0 +1,69 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<div class="page-header">
+  <h2>Our <span>Products</span></h2>
+</div>
+
+<div class="row g-4">
+  <!-- Sidebar -->
+  <div class="col-lg-2 col-md-3">
+    <div class="sidebar-filter">
+      <div class="filter-header">
+        <i class="fa-solid fa-filter"></i>&nbsp; Sub Categories
+      </div>
+      <div class="list-group list-group-flush">
+        {% for i in subcat %}
+        <a href="/user/product?sid={{i.id}}" class="list-group-item list-group-item-action">{{i.subcategory_name}}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="col-lg-10 col-md-9">
+    <div class="row g-3">
+      {% for x in pdata %}
+      <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <div class="product-card">
+          <div class="product-img-wrap">
+            <img src="/{{x.product_pic}}" alt="{{x.subcategory_name}}"/>
+            {% if x.total_discount > 0 %}
+            <div class="discount-badge">{{x.total_discount}}% OFF</div>
+            {% endif %}
+          </div>
+          <div class="product-info">
+            <div class="product-name">{{x.subcategory_name}}</div>
+            <div class="product-weight">{{x.product_quantity}}</div>
+            <div class="price-row">
+              <span class="price-original">₹{{x.price}}</span>
+              <span class="price-discount">₹{{x.discount_price}}</span>
+            </div>
+            <form method="get" action="/user/mycart/">
+              <input type="hidden" name="pname" value="{{x.subcategory_name}}"/>
+              <input type="hidden" name="price" value="{{x.price}}"/>
+              <input type="hidden" name="ppic" value="{{x.product_pic}}"/>
+              <input type="hidden" name="pw" value="{{x.product_quantity}}"/>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" onclick="funm{{x.id}}()"><i class="fa-solid fa-minus"></i></button>
+                <input type="text" name="qt" value="0" id="txtcard{{x.id}}" readonly/>
+                <button type="button" class="qty-btn" onclick="funp{{x.id}}()"><i class="fa-solid fa-plus"></i></button>
+              </div>
+              <button type="submit" class="btn-add-cart"><i class="fa-solid fa-cart-plus"></i>&nbsp; Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <script>
+        var i{{x.id}}=0;
+        var txtc{{x.id}}=document.getElementById("txtcard{{x.id}}");
+        function funp{{x.id}}(){ i{{x.id}}++; txtc{{x.id}}.value=i{{x.id}}; }
+        function funm{{x.id}}(){ if(i{{x.id}}>0){ i{{x.id}}--; txtc{{x.id}}.value=i{{x.id}}; } }
+      </script>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
